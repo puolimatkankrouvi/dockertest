@@ -3,3 +3,4 @@ dist
 .editorconfig
 README.md
 package-lock.json
+node_modules

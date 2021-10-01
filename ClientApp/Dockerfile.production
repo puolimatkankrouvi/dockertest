@@ -4,7 +4,9 @@ WORKDIR usr/src/app
 COPY package.json ./
 
 RUN yarn install --silent
-EXPOSE 80
 
 COPY . .
-CMD ["yarn", "start"]
+RUN yarn run build
+
+FROM nginx
+COPY --from=build /usr/src/app/dist /usr/share/nginx/html
