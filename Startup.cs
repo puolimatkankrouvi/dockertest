@@ -8,6 +8,8 @@ namespace DockerTest
 {
     public class Startup
     {
+        private readonly string dockerTestCorsPolicy = "dockerTestCorsPolicy";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -19,6 +21,13 @@ namespace DockerTest
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(dockerTestCorsPolicy, builder =>
+                {
+                    builder.WithOrigins(Configuration["FrontUrl"]);
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +48,8 @@ namespace DockerTest
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseCors(dockerTestCorsPolicy);
 
             app.UseEndpoints(endpoints =>
             {
