@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  dockertest_api:
+    build: .
+    image: dockertest_api
+    ports:
+      - 8000:80
+  dockertest_front:
+    build: /ClientApp
+    image: dockertest_front
+    ports:
+      - 3000:80
