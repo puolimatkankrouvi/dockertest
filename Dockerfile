@@ -1,14 +1,14 @@
-﻿FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim as build
+﻿FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim as base
 
-WORKDIR usr/src/app
+WORKDIR /app
+ENV ASPNETCORE_URLS=http://+:80
+EXPOSE 80
 
 COPY . .
-RUN dotnet build DockerTest.csproj --configuration=Release -o /app/build
-RUN dotnet publish DockerTest.csproj --configuration=Release -o /app/publish
+RUN dotnet build DockerTest.csproj --configuration=Debug -o /app/build
 
-FROM mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim as base
-WORKDIR /app
-COPY --from=build /app/publish .
+RUN dotnet dev-certs https --trust
 
-ENTRYPOINT ["dotnet", "DockerTest.dll"]
+
+ENTRYPOINT ["dotnet", "/app/build/DockerTest.dll"]
 
