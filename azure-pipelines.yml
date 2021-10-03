@@ -24,8 +24,7 @@ stages:
         azureContainerRegistry: '{"loginServer":"cde1414dockerregistry.azurecr.io", "id" : "/subscriptions/a7f0cffe-4da7-4ce0-b66f-fe17be377079/resourceGroups/dockertest/providers/Microsoft.ContainerRegistry/registries/cde1414dockerregistry"}'
         dockerComposeFile: '**/docker-compose.yaml'
         action: 'Run a Docker Compose command'
-        dockerComposeCommand: 'build'
-        includeLatestTag: true
+        dockerComposeCommand: 'up --build --nostart'
   - job: Push
     displayName: 'Push images to container registry'
     dependsOn: Build
@@ -38,4 +37,3 @@ stages:
         dockerComposeFile: '**/docker-compose.yaml'
         action: 'Run a Docker Compose command'
         dockerComposeCommand: 'push'
-        includeLatestTag: true
