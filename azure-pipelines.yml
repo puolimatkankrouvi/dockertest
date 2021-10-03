@@ -24,8 +24,8 @@ stages:
         azureContainerRegistry: '{"loginServer":"cde1414dockerregistry.azurecr.io", "id" : "/subscriptions/a7f0cffe-4da7-4ce0-b66f-fe17be377079/resourceGroups/dockertest/providers/Microsoft.ContainerRegistry/registries/cde1414dockerregistry"}'
         dockerComposeFile: '**/docker-compose.yaml'
         action: 'Build services'
-        includeLatestTag: true
         arguments: '--parallel'
+        additionalImageTags: $(Build.BuildId)
   - job: Push
     displayName: 'Push images to container registry'
     dependsOn: Build
@@ -38,3 +38,5 @@ stages:
         dockerComposeFile: '**/docker-compose.yaml'
         action: 'Push services'
         includeLatestTag: true
+        includeSourceTags: true
+        additionalImageTags: $(Build.BuildId)
