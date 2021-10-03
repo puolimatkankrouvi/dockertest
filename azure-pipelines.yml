@@ -17,22 +17,20 @@ stages:
     pool:
       vmImage: ubuntu-latest
     steps:
-    - task: DockerCompose@0
+    - task: Docker@2
       inputs:
-        containerregistrytype: 'Azure Container Registry'
-        azureSubscription: 'Azure subscription 1(1)(a7f0cffe-4da7-4ce0-b66f-fe17be377079)'
-        azureContainerRegistry: '{"loginServer":"cde1414dockerregistry.azurecr.io", "id" : "/subscriptions/a7f0cffe-4da7-4ce0-b66f-fe17be377079/resourceGroups/dockertest/providers/Microsoft.ContainerRegistry/registries/cde1414dockerregistry"}'
-        dockerComposeFile: '**/docker-compose.yaml'
-        action: 'Build services'
-        arguments: '--parallel'
-  - job: Push
-    displayName: 'Push images to container registry'
-    dependsOn: Build
-    steps:
-    - task: DockerCompose@0
+        containerRegistry: 'Docker container registry'
+        command: 'buildAndPush'
+        Dockerfile: 'Dockerfile.production'
+        tags: 'latest'
+        addPipelineData: false
+        addBaseImageData: false
+    - task: Docker@2
       inputs:
-        containerregistrytype: 'Azure Container Registry'
-        azureSubscription: 'Azure subscription 1(a7f0cffe-4da7-4ce0-b66f-fe17be377079)'
-        azureContainerRegistry: '{"loginServer":"cde1414dockerregistry.azurecr.io", "id" : "/subscriptions/a7f0cffe-4da7-4ce0-b66f-fe17be377079/resourceGroups/dockertest/providers/Microsoft.ContainerRegistry/registries/cde1414dockerregistry"}'
-        dockerComposeFile: '**/docker-compose.yaml'
-        action: 'Push services'
+        containerRegistry: 'Docker container registry'
+        command: 'buildAndPush'
+        Dockerfile: 'ClientApp/Dockerfile.production'
+        buildContext: 'ClientApp'
+        tags: 
+        addPipelineData: false
+        addBaseImageData: false
