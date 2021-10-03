@@ -3,17 +3,17 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
-- master
+- azure
 
 resources:
 - repo: self
 
 stages:
-- stage: Build
-  displayName: Build image
+- stage: Compose
+  displayName: 'Docker compose build and push'
   jobs:
   - job: Build
-    displayName: Build
+    displayName: 'Build images'
     pool:
       vmImage: ubuntu-latest
     steps:
@@ -25,3 +25,16 @@ stages:
         dockerComposeFile: '**/docker-compose.yaml'
         action: 'Run a Docker Compose command'
         dockerComposeCommand: 'build'
+  - job: Push
+    displayName: 'Push images to container registry'
+    steps:
+    - task: DockerCompose@0
+      inputs:
+        containerregistrytype: 'Azure Container Registry'
+        azureSubscription: 'Azure subscription 1(a7f0cffe-4da7-4ce0-b66f-fe17be377079)'
+        azureContainerRegistry: '{"loginServer":"cde1414dockerregistry.azurecr.io", "id" : "/subscriptions/a7f0cffe-4da7-4ce0-b66f-fe17be377079/resourceGroups/dockertest/providers/Microsoft.ContainerRegistry/registries/cde1414dockerregistry"}'
+        dockerComposeFile: '**/docker-compose.yaml'
+        action: 'Run a Docker Compose command'
+        dockerComposeCommand: 'push'
+        includeLatestTag: true
+        includeSourceTags: true
