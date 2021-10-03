@@ -27,6 +27,7 @@ stages:
         dockerComposeCommand: 'build'
   - job: Push
     displayName: 'Push images to container registry'
+    dependsOn: Build
     steps:
     - task: DockerCompose@0
       inputs:
