@@ -5,13 +5,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.production
-    image: ${REGISTRY_NAME}dockertest_api:latest
+    image: ${REGISTRY_NAME}dockertest_api
     ports:
       - 80:80
   dockertest_front:
     build:
       context: ./ClientApp
       dockerfile: Dockerfile.production
-    image: ${REGISTRY_NAME}dockertest_front:latest
+    image: ${REGISTRY_NAME}dockertest_front
     ports:
       - 80:80
