@@ -9,11 +9,11 @@ resources:
 - repo: self
 
 stages:
-- stage: Compose
-  displayName: 'Docker compose build and push'
+- stage: Docker
+  displayName: 'Docker'
   jobs:
-  - job: Build
-    displayName: 'Build images'
+  - job: Api
+    displayName: 'Build and push api image'
     pool:
       vmImage: ubuntu-latest
     steps:
@@ -26,6 +26,11 @@ stages:
         repository: 'dockertest_api'
         addPipelineData: false
         addBaseImageData: false
+  - job: Front
+    displayName: 'Build and push front image'
+    pool:
+      vmImage: ubuntu-latest
+    steps:
     - task: Docker@2
       inputs:
         containerRegistry: 'Docker container registry'
