@@ -20,10 +20,11 @@ stages:
     pool:
       vmImage: ubuntu-latest
     steps:
-    - task: Docker@2
-      displayName: Build an image
+    - task: DockerCompose@0
       inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        tags: |
-          $(tag)
+        containerregistrytype: 'Azure Container Registry'
+        azureSubscription: 'Azure subscription 1(1)(a7f0cffe-4da7-4ce0-b66f-fe17be377079)'
+        azureContainerRegistry: '{"loginServer":"cde1414dockerregistry.azurecr.io", "id" : "/subscriptions/a7f0cffe-4da7-4ce0-b66f-fe17be377079/resourceGroups/dockertest/providers/Microsoft.ContainerRegistry/registries/cde1414dockerregistry"}'
+        dockerComposeFile: '**/docker-compose.yml'
+        action: 'Run a Docker Compose command'
+        dockerComposeCommand: 'docker compose build'
