@@ -23,8 +23,8 @@ stages:
         azureSubscription: 'Azure subscription 1(1)(a7f0cffe-4da7-4ce0-b66f-fe17be377079)'
         azureContainerRegistry: '{"loginServer":"cde1414dockerregistry.azurecr.io", "id" : "/subscriptions/a7f0cffe-4da7-4ce0-b66f-fe17be377079/resourceGroups/dockertest/providers/Microsoft.ContainerRegistry/registries/cde1414dockerregistry"}'
         dockerComposeFile: '**/docker-compose.yaml'
-        action: 'Run a Docker Compose command'
-        dockerComposeCommand: 'up --build --no-start'
+        action: 'Build services'
+        includeLatestTag: true
   - job: Push
     displayName: 'Push images to container registry'
     dependsOn: Build
@@ -34,6 +34,6 @@ stages:
         containerregistrytype: 'Azure Container Registry'
         azureSubscription: 'Azure subscription 1(a7f0cffe-4da7-4ce0-b66f-fe17be377079)'
         azureContainerRegistry: '{"loginServer":"cde1414dockerregistry.azurecr.io", "id" : "/subscriptions/a7f0cffe-4da7-4ce0-b66f-fe17be377079/resourceGroups/dockertest/providers/Microsoft.ContainerRegistry/registries/cde1414dockerregistry"}'
-        dockerComposeFile: '**/docker-compose.yaml'
-        action: 'Run a Docker Compose command'
-        dockerComposeCommand: 'push'
+        dockerComposeFile: '**/docker-compose.yml'
+        action: 'Push services'
+        includeLatestTag: true
