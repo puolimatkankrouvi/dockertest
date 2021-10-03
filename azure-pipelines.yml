@@ -24,4 +24,4 @@ stages:
         azureContainerRegistry: '{"loginServer":"cde1414dockerregistry.azurecr.io", "id" : "/subscriptions/a7f0cffe-4da7-4ce0-b66f-fe17be377079/resourceGroups/dockertest/providers/Microsoft.ContainerRegistry/registries/cde1414dockerregistry"}'
         dockerComposeFile: '**/docker-compose.yaml'
         action: 'Run a Docker Compose command'
-        dockerComposeCommand: 'docker compose build'
+        dockerComposeCommand: 'build'
