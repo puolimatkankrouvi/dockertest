@@ -2,12 +2,16 @@ version: "3"
 
 services:
   dockertest_api:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.production
     image: dockertest_api
     ports:
-      - 8000:80
+      - 80:80
   dockertest_front:
-    build: /ClientApp
+    build:
+      context: ./ClientApp
+      dockerfile: Dockerfile.production
     image: dockertest_front
     ports:
-      - 3000:80
+      - 80:80
