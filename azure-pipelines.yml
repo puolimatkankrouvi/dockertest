@@ -25,6 +25,7 @@ stages:
         dockerComposeFile: '**/docker-compose.yaml'
         action: 'Run a Docker Compose command'
         dockerComposeCommand: 'build'
+        includeLatestTag: true
   - job: Push
     displayName: 'Push images to container registry'
     dependsOn: Build
@@ -38,4 +39,3 @@ stages:
         action: 'Run a Docker Compose command'
         dockerComposeCommand: 'push'
         includeLatestTag: true
-        includeSourceTags: true
