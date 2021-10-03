@@ -23,6 +23,7 @@ stages:
         command: 'buildAndPush'
         Dockerfile: 'Dockerfile.production'
         tags: 'latest'
+        repository: 'dockertest_api'
         addPipelineData: false
         addBaseImageData: false
     - task: Docker@2
@@ -31,6 +32,7 @@ stages:
         command: 'buildAndPush'
         Dockerfile: 'ClientApp/Dockerfile.production'
         buildContext: 'ClientApp'
-        tags: 
+        repository: 'dockertest_front'
+        tags: 'latest'
         addPipelineData: false
         addBaseImageData: false
