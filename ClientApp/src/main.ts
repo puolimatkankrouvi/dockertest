@@ -4,12 +4,12 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
-export function getBaseUrl() {
-  return 'http://localhost:8000/';
+export function getApiUrl() {
+  return environment.apiUrl;
 }
 
 const providers = [
-  { provide: 'BASE_URL', useFactory: getBaseUrl, deps: [] }
+  { provide: 'API_URL', useFactory: getApiUrl, deps: [] }
 ];
 
 if (environment.production) {
