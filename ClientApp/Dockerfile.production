@@ -6,7 +6,7 @@ COPY package.json ./
 RUN yarn install --silent
 
 COPY . .
-RUN yarn run build
+RUN yarn run build:prod
 
 FROM nginx
 COPY --from=build /usr/src/app/dist /usr/share/nginx/html
